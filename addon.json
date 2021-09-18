@@ -1,0 +1,13 @@
+{
+	"title": "Servo",
+	"type":	"tool",
+	"tags":	["build"],
+	"ignore":
+	[
+		"*.bat",
+		"*.jpg",
+		"*.md",
+		".git*",
+		"LICENSE"
+	]
+}
