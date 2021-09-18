@@ -1,10 +1,8 @@
 AddCSLuaFile()
 DEFINE_BASECLASS("base_gmodentity")
 
+ENT.PrintName 	= "Servo"
 ENT.Author 		= "TankNut"
-
-ENT.Spawnable	= false
-ENT.RenderGroup = RENDERGROUP_OPAQUE
 
 if SERVER then
 	function ENT:Initialize()
