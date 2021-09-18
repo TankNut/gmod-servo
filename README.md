@@ -1,4 +1,4 @@
-# Pointcloud
-A Garry's Mod addon that provides a dynamic in-game minimap
+# Servo
+A Garry's Mod addon that adds servos as their own tool, essentially a more precise type of wheel.
 
-Workshop link: http://steamcommunity.com/sharedfiles/filedetails/?id=2185917826
+Workshop link:
