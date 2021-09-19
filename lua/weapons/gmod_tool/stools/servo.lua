@@ -36,6 +36,7 @@ cleanup.Register("servos")
 
 function TOOL:LeftClick(trace)
 	local ent = trace.Entity
+
 	if IsValid(ent) and ent:IsPlayer() then
 		return false
 	end
@@ -113,6 +114,10 @@ function TOOL:LeftClick(trace)
 end
 
 function TOOL:RightClick(trace)
+	if CLIENT then
+		return true
+	end
+
 	local ent = trace.Entity
 
 	if IsValid(ent) and not ent:IsWorld() then
@@ -132,6 +137,10 @@ function TOOL:Reload(trace)
 
 	if not IsValid(ent) or ent:GetClass() != "gmod_servo" then
 		return false
+	end
+
+	if CLIENT then
+		return true
 	end
 
 	local ply = self:GetOwner()
