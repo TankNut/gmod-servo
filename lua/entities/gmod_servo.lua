@@ -29,7 +29,7 @@ if SERVER then
 
 		-- insert numpad actions for each axis and its two directions
 		for axis, axisTable in pairs({x = self.Roll, y = self.Pitch, z = self.Yaw}) do
-			for direction, key in pairs({[-1] = axisTable.Forward, [1] = axisTable.Back}) do
+			for direction, key in pairs({[1] = axisTable.Forward, [-1] = axisTable.Back}) do
 				table.insert(self.NumpadCache, numpad.OnDown(ply, key, "Servo_On", self, axis, direction, axisTable.Toggle) or nil)
 				table.insert(self.NumpadCache, not axisTable.Toggle and numpad.OnUp(ply, key, "Servo_Off", self, axis, direction) or nil)
 			end
