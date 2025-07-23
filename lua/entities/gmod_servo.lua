@@ -28,11 +28,10 @@ if SERVER then
 		table.Empty(self.NumpadCache)
 
 		-- insert numpad actions for each axis and its two directions
-		for axis, axisTable in pairs( { x = self.Roll, y = self.Pitch, z = self.Yaw } ) do
-			for direction, key in pairs( { [ -1 ] = axisTable.Forward, [ 1 ] = axisTable.Back } ) do
-				local tog = axisTable.Toggle
-				table.insert( self.NumpadCache, numpad.OnDown(ply, key, "Servo_On", self, axis, direction, tog) or nil )
-				table.insert(self.NumpadCache, not tog and numpad.OnUp(ply, key, "Servo_Off", self, axis, direction) or nil )
+		for axis, axisTable in pairs({x = self.Roll, y = self.Pitch, z = self.Yaw}) do
+			for direction, key in pairs({[-1] = axisTable.Forward, [1] = axisTable.Back}) do
+				table.insert(self.NumpadCache, numpad.OnDown(ply, key, "Servo_On", self, axis, direction, axisTable.Toggle) or nil)
+				table.insert(self.NumpadCache, not axisTable.Toggle and numpad.OnUp(ply, key, "Servo_Off", self, axis, direction) or nil)
 			end
 		end
 
@@ -47,7 +46,7 @@ if SERVER then
 		local dir = Vector(self.Roll.Value * self.Directions.x, self.Pitch.Value * self.Directions.y, self.Yaw.Value * self.Directions.z)
 
 		for _, v in pairs({"x", "y", "z"}) do
-			if dir[v] ~= 0 then
+			if dir[v] != 0 then
 				vel[v] = dir[v]
 			end
 		end
@@ -73,7 +72,11 @@ if SERVER then
 	numpad.Register("Servo_On", function(ply, ent, axis, dir, toggle)
 		if not IsValid(ent) then return end
 
-		ent.Directions[axis] = ( toggle and ent.Directions[axis] ~= 0 ) and 0 or dir
+		if toggle then
+			ent.Directions[axis] = ent.Directions[axis] != 0 and 0 or dir
+		else
+			ent.Directions[axis] = dir
+		end
 	end)
 
 	numpad.Register("Servo_Off", function(ply, ent, axis, dir)
